@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "mpi",
+  "version": "${version}",
+  "name": "Multiplayer Isolation",
+  "description": "Hides all information about other online players execpt for player positions",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mpi/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "me.virusnest.mpi.Mpi"
+    ]
+  },
+  "mixins": [
+    "mpi.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
