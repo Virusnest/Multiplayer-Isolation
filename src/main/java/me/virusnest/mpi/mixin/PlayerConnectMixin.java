@@ -4,6 +4,7 @@ package me.virusnest.mpi.mixin;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.*;
@@ -50,50 +51,17 @@ public abstract class PlayerConnectMixin {
     }
 
 
-    @Inject(method = "onPlayerConnect(Lnet/minecraft/network/ClientConnection;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/server/network/ConnectedClientData;)V", at = @At(value = "RETURN"))
-    private void RemovePlayer(ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, CallbackInfo ci) {
-        // Do nothing
-        for(ServerPlayerEntity serverPlayerEntity : this.players) {
-            if (serverPlayerEntity == player) {
-                continue;
-            }
-            ResetHiddenPlayerFor(serverPlayerEntity, player);
-            ResetHiddenPlayerFor(player, serverPlayerEntity);
-
-        }
-
-    }
-
-    @Inject(method = "respawnPlayer", at = @At("HEAD"))
-    private void BeginRespawnPlayer(ServerPlayerEntity player, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir){
-
-            sendToAll((PlayerListS2CPacket.entryFromPlayer(List.of(player))));
-            player.networkHandler.sendPacket(PlayerListS2CPacket.entryFromPlayer(players));
-
-    }
-    @Inject(method = "respawnPlayer", at = @At(value = "RETURN"))
-    private void EndRespawnPlayer(ServerPlayerEntity player, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir){
-        System.out.println("Respawned Player " + player.getName());
-        for(ServerPlayerEntity spe : this.players) {
-            if (spe == player) {
-                continue;
-            }
-           player.networkHandler.sendPacket(new EntitySpawnS2CPacket( spe.getId(), spe.getUuid(), spe.getX(), spe.getY(), spe.getZ(), spe.getYaw(), spe.getPitch(),spe.getType(),spe.getId(), spe.getVelocity(), spe.getHeadYaw()));
-            player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(List.of(spe.getUuid())));
-        }
-
-//        sendToAll(new PlayerRemoveS2CPacket(List.of(player.getUuid())));
-//        player.networkHandler.sendPacket(new PlayerRemoveS2CPacket(players.stream().map(ServerPlayerEntity::getUuid).collect(Collectors.toList())));
-//        player.networkHandler.sendPacket(PlayerListS2CPacket.entryFromPlayer(List.of(player)));
+//    @Inject(method = "respawnPlayer", at = @At("RETURN"))
+//    private void d(ServerPlayerEntity player, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
 //        for(ServerPlayerEntity serverPlayerEntity : this.players) {
 //            if (serverPlayerEntity.getId() == player.getId()) {
 //                continue;
 //            }
-//           player.networkHandler.sendPacket(new EntitySpawnS2CPacket( serverPlayerEntity.getId(), serverPlayerEntity.getUuid(), serverPlayerEntity.getX(), serverPlayerEntity.getY(), serverPlayerEntity.getZ(), serverPlayerEntity.getYaw(), serverPlayerEntity.getPitch(),serverPlayerEntity.getType(),serverPlayerEntity.getId(), serverPlayerEntity.getVelocity(), serverPlayerEntity.getHeadYaw()));
+//            ResetHiddenPlayerFor(serverPlayerEntity.networkHandler, player);
+//            ResetHiddenPlayerFor(player.networkHandler, serverPlayerEntity);
 //
 //        }
-
-    }
+//    }
 
     private void sendToAllExcept(ServerPlayerEntity player) {
         for (ServerPlayerEntity serverPlayerEntity : this.players) {

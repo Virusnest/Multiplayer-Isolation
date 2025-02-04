@@ -5,6 +5,7 @@ import net.minecraft.network.encryption.PublicPlayerSession;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.PlayerManager;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
@@ -17,8 +18,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.UUID;
 
-@Mixin(PlayerListS2CPacket.class)
+@Mixin(ServerPlayNetworkHandler.class)
 public class PlayerListMixin {
 
-
+    @Redirect(method = "cleanUp()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"), remap = false)
+    private void onPlayerLeave(PlayerManager instance, Text message, boolean overlay) {
+        // Do nothing
+    }
 }
