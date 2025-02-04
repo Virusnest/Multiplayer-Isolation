@@ -17,9 +17,7 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-    maven { url = uri("https://repo.codemc.io/repository/maven-releases/") }
 
-    maven { url = uri("https://repo.codemc.io/repository/maven-snapshots/") }
 }
 
 dependencies {
@@ -27,7 +25,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation("com.github.retrooper:packetevents-fabric:2.7.0")
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 

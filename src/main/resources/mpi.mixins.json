@@ -6,7 +6,9 @@
   "mixins": [
     "PlayerConnectMixin",
     "PlayerListMixin",
-    "ClientConnectionMixin"
+    "ClientConnectionMixin",
+    "ChatMixin",
+    "CommandMixins"
   ],
   "client": [
   ],
