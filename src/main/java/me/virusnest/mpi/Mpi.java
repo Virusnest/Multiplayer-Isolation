@@ -1,6 +1,7 @@
 package me.virusnest.mpi;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
@@ -11,15 +12,25 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.scoreboard.Team;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.PathUtil;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 public class Mpi implements ModInitializer {
     public static Team playerTeam;
     public static String TEAM_NAME = "MPI";
+    public static Configs CONFIG = new Configs();
     @Override
     public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            PathUtil.getPath(server.getRunDirectory(), List.of("config","MPI.json"));
+            CONFIG = CONFIG.LoadConfig(PathUtil.getPath(server.getRunDirectory(), List.of("config","MPI.json")).toFile());
+        });
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             System.out.println("Server started");
             if(server.getScoreboard().getTeamNames().contains(TEAM_NAME)){
@@ -39,6 +50,11 @@ public class Mpi implements ModInitializer {
         ServerEntityEvents.ENTITY_LOAD.register((entity, serverWorld) -> {
             if(entity instanceof PlayerEntity){
                 System.out.println("Player Loaded " + entity.getName());
+            }
+        });
+        ServerEntityEvents.ENTITY_UNLOAD.register((entity, serverWorld) -> {
+            if(entity instanceof PlayerEntity){
+                System.out.println("Player Unloaded " + entity.getName());
             }
         });
 

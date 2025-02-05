@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import me.virusnest.mpi.Mpi;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
@@ -25,6 +26,10 @@ public abstract class CommandMixins {
 
     @ModifyReturnValue(method = "getPlayers", at = @At("RETURN"))
     public List<ServerPlayerEntity> removePlayers(List<ServerPlayerEntity> original, ServerCommandSource src) {
+        System.out.println(Mpi.CONFIG.hidePlayerList);
+        if(!Mpi.CONFIG.hidePlayerList) {
+            return original;
+        }
         System.out.println("Removing players from list");
         List<ServerPlayerEntity> players = new ArrayList<>(original);
         players.removeIf(player -> true);
