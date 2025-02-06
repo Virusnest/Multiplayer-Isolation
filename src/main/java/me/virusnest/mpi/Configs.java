@@ -16,7 +16,9 @@ public class Configs {
     public boolean hideJoinMessage = true;
     public boolean hideLeaveMessage = true;
     public boolean hideChatMessages = true;
-    public boolean LocalisedChat = true;
+    public boolean localisedChat = true;
+    public boolean hidePlayerNames = true;
+    public int maxPlayerDistance = -1;
 
     public void SaveConfig(File ConfigFile){
         GsonBuilder gsonBuilder  = new GsonBuilder();

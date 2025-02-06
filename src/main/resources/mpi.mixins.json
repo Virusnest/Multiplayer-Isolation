@@ -7,8 +7,9 @@
     "ChatMixin",
     "EntityTrackerMixin",
     "ServerQueryMixin",
+    "ServerPlayNetworkMixin",
     "CommandMixins",
-    "PlayerConnectMixin",
+    "PlayerManagerMixin",
     "PlayerListMixin"
   ],
   "client": [
