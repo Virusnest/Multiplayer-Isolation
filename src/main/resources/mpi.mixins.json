@@ -10,7 +10,7 @@
     "ServerPlayNetworkMixin",
     "CommandMixins",
     "PlayerManagerMixin",
-    "PlayerListMixin"
+    "PlayerEntityMixin"
   ],
   "client": [
   ],

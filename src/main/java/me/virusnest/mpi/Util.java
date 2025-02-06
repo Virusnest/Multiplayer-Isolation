@@ -28,9 +28,5 @@ public class Util {
         serverPlayNetworkHandler.send(new PlayerRemoveS2CPacket(List.of(target.getUuid())),null);
     }
 
-    public static boolean verify(SignedMessage message) {
-        return message.hasSignature() && !message.isExpiredOnServer(Instant.now());
-    }
-
 
 }

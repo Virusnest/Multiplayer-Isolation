@@ -37,10 +37,6 @@ public abstract class PlayerManagerMixin {
         }
         // Do nothing
     }
-    @Inject(method = "onPlayerConnect", at = @At("TAIL"))
-    private void OnPlayerJoin(ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, CallbackInfo ci) {
-
-    }
 
 }
 

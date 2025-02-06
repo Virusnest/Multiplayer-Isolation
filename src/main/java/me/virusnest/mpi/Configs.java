@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.nio.file.Path;
 
 public class Configs {
 
@@ -15,10 +14,11 @@ public class Configs {
     public boolean hidePlayerCount = true;
     public boolean hideJoinMessage = true;
     public boolean hideLeaveMessage = true;
-    public boolean hideChatMessages = true;
-    public boolean localisedChat = true;
+    public boolean hidePlayerChatMessages = true;
     public boolean hidePlayerNames = true;
-    public int maxPlayerDistance = -1;
+    public boolean hidePlayerDeathMessages = true;
+    // -1 = unlimited
+    // units are in blocks
 
     public void SaveConfig(File ConfigFile){
         GsonBuilder gsonBuilder  = new GsonBuilder();
