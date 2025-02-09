@@ -28,7 +28,7 @@ public abstract class PlayerManagerMixin {
 
     @Shadow @Final private List<ServerPlayerEntity> players;
 
-    @Redirect(method = "onPlayerConnect", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V", remap = false))
+    @Redirect(method = "onPlayerConnect", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"))
     private void DissablePlayJoinMessage(PlayerManager instance, Text message, boolean overlay) {
         if (Mpi.CONFIG.hideJoinMessage) {
             // Do nothing

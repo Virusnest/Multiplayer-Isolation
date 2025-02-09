@@ -33,7 +33,7 @@ public class ServerPlayNetworkMixin {
 
     }
 
-    @Redirect(method = "cleanUp()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"), remap = false)
+    @Redirect(method = "cleanUp()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"))
     private void onPlayerLeave(PlayerManager instance, Text message, boolean overlay) {
         if (Mpi.CONFIG.hideLeaveMessage) {
             // Do nothing
