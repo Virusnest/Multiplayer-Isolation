@@ -8,7 +8,7 @@
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/mpi/icon.png",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "me.virusnest.mpi.Mpi"

@@ -22,7 +22,7 @@ public class EntityTrackerMixin {
     @Final
     private Entity entity;
 
-    @Inject(method = "Lnet/minecraft/server/network/EntityTrackerEntry;startTracking(Lnet/minecraft/server/network/ServerPlayerEntity;)V", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "startTracking", at = @At("TAIL"), cancellable = true)
     private void onSendChunkData(ServerPlayerEntity player, CallbackInfo ci) {
         if (entity.isPlayer()&& Mpi.CONFIG.hidePlayerList) {
 
