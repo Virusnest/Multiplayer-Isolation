@@ -1,5 +1,6 @@
 package me.virusnest.mpi;
 
+import me.virusnest.mpi.mixin.DataTrackerMixin;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.data.DataTracked;
 import net.minecraft.entity.data.DataTracker;
@@ -33,14 +34,14 @@ public class Util {
         serverPlayNetworkHandler.send( new EntitySpawnS2CPacket(target.getId(), target.getUuid(), target.getX(), target.getY(), target.getZ(), target.getYaw(), target.getPitch(),target.getType(),target.getId(), target.getVelocity(), target.getHeadYaw()),null);
         serverPlayNetworkHandler.send(new PlayerRemoveS2CPacket(List.of(target.getUuid())),null);
         try {
-            Field field = DataTracker.class.getDeclaredField("entries");
-            field.setAccessible(true); // Allows access to private fields
-            DataTracker.Entry<?>[] value = (DataTracker.Entry<?>[]) field.get(target.getDataTracker());
+            /// Using Mixin to access private fields and methods
+        ///  Fix Provided by Apollounknowndev
+            DataTracker.Entry<?>[] value = ((DataTrackerMixin)target.getDataTracker()).entries();
             List<DataTracker.SerializedEntry<?>> entries = Arrays.stream(value)
                     .map(DataTracker.Entry::toSerialized)
                     .collect(Collectors.toList());
             serverPlayNetworkHandler.send(new EntityTrackerUpdateS2CPacket(target.getId(), entries), null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

@@ -11,7 +11,8 @@
     "ServerNetworkHandlerMixin",
     "CommandMixins",
     "PlayerManagerMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "DataTrackerMixin"
   ],
   "client": [
     "ClientPlayNetworkMixin",
