@@ -12,4 +12,6 @@ A serverside Minecraft mod that aims to hide all relevant information about othe
 - Keeps player entities visible
 - Fully Configurable
 
-This mod works well with mods such as [Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat), and [Localized Chat](https://modrinth.com/mod/localized-chat) (make sure to enable chat messages in the config).
+This mod works well with mods such as ~~[Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat)~~, and [Localized Chat](https://modrinth.com/mod/localized-chat) (make sure to enable chat messages in the config).
+
+NOTE: VOICE CHAT MODS DON'T HIDE THE NAMES OF PLAYERS IN THE VOICE CHAT UI, A SOLUTION FOR THIS IS IN THE WORKS.
