@@ -26,11 +26,9 @@ public abstract class CommandMixins {
 
     @ModifyReturnValue(method = "getPlayers", at = @At("RETURN"))
     public List<ServerPlayerEntity> removePlayers(List<ServerPlayerEntity> original, ServerCommandSource src) {
-        System.out.println(Mpi.CONFIG.hidePlayerList);
         if(!Mpi.CONFIG.hidePlayerList) {
             return original;
         }
-        System.out.println("Removing players from list");
         List<ServerPlayerEntity> players = new ArrayList<>(original);
         players.removeIf(player -> true);
 

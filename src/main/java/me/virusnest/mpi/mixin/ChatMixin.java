@@ -13,7 +13,6 @@ import java.util.concurrent.CompletableFuture;
 public class ChatMixin {
     @ModifyReturnValue(method = "listSuggestions", at = @At(value = "RETURN"))
     private CompletableFuture<Suggestions> getPlayerNames(CompletableFuture<Suggestions> original) {
-        System.out.println("Hiding player names");
         return Suggestions.empty();
     }
 }
